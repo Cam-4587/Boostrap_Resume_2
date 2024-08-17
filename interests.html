@@ -222,20 +222,46 @@
 
     </footer>
     <script>
-         function initMap(){
+        async function initMap() {
+            const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
             var map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 3,
                 center: {
                     lat: 46.619261,
                     lng: -33.134766,
-                }
+                },
+                mapId: 'a8c9bd388635487f',
             });
+            var labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var locations = [
+                { lat: 40.785091, lng: -73.968285 },
+                { lat: 41.084045, lng: -73.874245 },
+                { lat: 40.754932, lng: -73.984016 }
+            ];
+            var markers = locations.map(function (location, i) {
+                return new google.maps.marker.AdvancedMarkerElement({
+                    position: location,
+                    label: labels[i % labels.length]
+                });
+            });
+            var markerClusterer = MarkerClusterer(map, markers,
+                { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
         }
     </script>
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo_rrqidl2z25AaMhrG237JW-6QXT3VxQ&loading=async&callback=initMap">
-        </script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo_rrqidl2z25AaMhrG237JW-6QXT3VxQ&loading=async&callback=initMap&libraries=marker"></script>
 </body>
-
 </html>
+
+
+<!--
+https://developers.google.com/maps/documentation/javascript/advanced-markers/migration
+ 
+Add code to import the marker library. Note that the previous version of markers (google.maps.Marker) does not have this requirement.
+    - const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+
+Change google.maps.Marker to google.maps.marker.AdvancedMarkerElement
+
+Add a map ID to your map initialization code. For example mapId: 'DEMO_MAP_ID' for testing purposes if you don't have a map ID already.
+-->
