@@ -19,7 +19,10 @@ async function initMap() {
             position: location,
             label: labels[i % labels.length]
         });
+        
     });
     var markerClusterer = MarkerClusterer(map, markers,
         { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
+
+// Markers on map currently not functional.
