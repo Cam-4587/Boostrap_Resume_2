@@ -14,3 +14,4 @@ function sendMail(contactForm) {
     );
     return false;
 }
+// Sending email function currently not working
